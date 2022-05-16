@@ -1,15 +1,12 @@
 package com.example.jpastudy.chapter2
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @Table(name="member")
 @Entity
 class Member(username: String, age: Int) {
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private var id: Long? = null
 
     @Column(name = "name")
