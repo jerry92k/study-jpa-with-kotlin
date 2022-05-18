@@ -1,7 +1,6 @@
 package com.example.jpastudy.chapter2
 
 import javax.persistence.EntityManager
-import javax.persistence.EntityTransaction
 import javax.persistence.PersistenceContext
 
 class TransactionMain {
