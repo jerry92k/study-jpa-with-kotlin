@@ -17,8 +17,7 @@ internal class ParentIdTest{
     fun test(){
         val parent = Parent()
         parent.name="gigi"
-        parent.id1="id1"
-        parent.id2="id2"
+        parent.id=ParentId("id1", "id2")
         em.persist(parent)
         em.flush()
         em.clear()

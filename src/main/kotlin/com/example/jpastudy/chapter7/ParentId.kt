@@ -1,9 +1,17 @@
 package com.example.jpastudy.chapter7
 
 import java.io.Serializable
+import javax.persistence.Column
+import javax.persistence.Embeddable
 
-class ParentId(var id1: String?=null,
-                    val id2: String?=null
+@Embeddable
+class ParentId(
+
+    @Column(name="PARENT_ID1")
+    var id1: String?=null,
+
+    @Column(name="PARENT_ID2")
+    var id2: String?=null
 ) : Serializable {
 
     override fun equals(other: Any?): Boolean {
