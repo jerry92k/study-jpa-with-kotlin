@@ -13,12 +13,12 @@ internal class OrderTest{
 
     @Test
     fun test(){
-        val order = Order("치킨")
-        em.persist(order)
+        val orders = Orders("치킨")
+        em.persist(orders)
         em.flush()
         println("-------------check point-----------------")
 
-        order.menuName="피자"
+        orders.menuName="피자"
         em.flush()
     }
 }

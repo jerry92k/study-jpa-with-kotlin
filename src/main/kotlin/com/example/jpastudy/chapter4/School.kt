@@ -17,5 +17,5 @@ class School(name: String) {
     val image: Array<Byte> = arrayOf()
 
     @Lob
-    val content: String =""
+    var content: String =""
 }
