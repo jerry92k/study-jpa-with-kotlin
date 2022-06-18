@@ -1,56 +1,49 @@
 package com.example.jpastudy.chapter15
 
 import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import javax.persistence.EntityManager
 
-@ActiveProfiles("test")
-@SpringBootTest
-internal class CoffeeServiceTest {
 
-    @Autowired
-    lateinit var coffeeService: CoffeeService
+@DataJpaTest
+class ProxyTest {
 
     @Autowired
     lateinit var em: EntityManager
 
     @Test
-    fun test() {
-        coffeeService.saveSameCoffeeTwice("Americano", "blended")
+    fun test1() {
+        val id = "COFFEE_01"
+        em.persist(Coffee(id,"Americano"))
+        em.flush()
+        em.clear()
 
-        val findCoffee = em.find(Coffee::class.java, "Americano")
-        println(findCoffee)
+        val proxyEntity = em.getReference(Coffee::class.java, id)
+        val originEntity = em.find(Coffee::class.java, id)
 
+        println("proxyEntity type ${proxyEntity.javaClass}")
+        println("originEntity type ${originEntity.javaClass}")
+
+        assertThat(proxyEntity == originEntity).isTrue
     }
 
     @Test
     fun test2() {
         val id = "COFFEE_01"
         em.persist(Coffee(id,"Americano"))
+        em.flush()
+        em.clear()
 
-        val proxyEntity = em.getReference(Coffee::class.java, id)
         val originEntity = em.find(Coffee::class.java, id)
+        val proxyEntity = em.getReference(Coffee::class.java, id)
 
         println("proxyEntity type ${proxyEntity.javaClass}")
         println("originEntity type ${originEntity.javaClass}")
 
-        Assertions.assertThat(proxyEntity == originEntity).isTrue
-    }
-
-    @Test
-    fun test3() {
-        val id = "COFFEE_01"
-        em.persist(Coffee(id,"Americano"))
-
-        val proxyEntity = em.getReference(Coffee::class.java, id)
-        val originEntity = em.find(Coffee::class.java, id)
-
-        println("proxyEntity type ${proxyEntity.javaClass}")
-        println("originEntity type ${originEntity.javaClass}")
-
-        Assertions.assertThat(proxyEntity == originEntity).isTrue
+        assertThat(proxyEntity == originEntity).isTrue
     }
 }
+

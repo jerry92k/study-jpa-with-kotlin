@@ -15,4 +15,21 @@ class Coffee (
     override fun toString(): String {
         return "Coffee(id='$id', name='$name')"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Coffee) return false
+
+        if (id != other.id) return false
+        if (name != other.name) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + name.hashCode()
+        return result
+    }
+
 }
